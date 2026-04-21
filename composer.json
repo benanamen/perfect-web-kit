@@ -1,0 +1,55 @@
+{
+    "name": "krubio/perfect-web-kit",
+    "description": "Shared PHP 8.5 web-UI toolkit: typed HTTP API client, request/session helpers, fail-closed auth guard, PSR-3 error handling, env loader, and asset utilities.",
+    "keywords": [
+        "http-client",
+        "psr-3",
+        "psr-7",
+        "session",
+        "env",
+        "auth-guard"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Rubio",
+            "email": "ducatikevin@yahoo.com",
+            "homepage": "https://github.com/benanamen/perfect-web-kit",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.5",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "psr/log": "^3.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PerfectApp\\WebKit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PerfectApp\\WebKit\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/check-git-path-case-collisions.php",
+        "bin/apply-codeception-windows-regex-fix.php"
+    ],
+    "scripts": {
+        "phpstan": "php vendor/bin/phpstan analyse --memory-limit=512M",
+        "test": "php vendor/bin/phpunit",
+        "test:coverage": "php -d pcov.enabled=1 -d pcov.directory=src vendor/bin/phpunit --coverage-text"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}
