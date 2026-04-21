@@ -50,4 +50,32 @@ final readonly class SessionCookieConfig
 
         return '__Host-' . $baseName;
     }
+
+    /**
+     * Pick the correct cookie name + secure flag for a given request context.
+     *
+     * When {@see $secure} is true, the cookie gets the browser-enforced
+     * "__Host-" prefix which mandates Secure, Path=/, and no Domain attribute.
+     * When false (local HTTP dev), the bare $baseName is used so the session
+     * still works over plaintext; it is never deployed that way in production.
+     *
+     * @param non-empty-string $baseName
+     */
+    public static function forHostProfile(
+        string $baseName,
+        bool $secure,
+        SameSite $sameSite = SameSite::Lax,
+    ): self {
+        if ($baseName === '') {
+            throw new \InvalidArgumentException('forHostProfile baseName must not be empty.');
+        }
+
+        $cookieName = $secure ? self::hostPrefix($baseName) : $baseName;
+
+        return new self(
+            cookieName: $cookieName,
+            secure: $secure,
+            sameSite: $sameSite,
+        );
+    }
 }
